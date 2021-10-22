@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :member do
-    band { nil }
-    name { "MyString" }
+    name { Faker::Name.unique.name }
+    band_id { Band.pluck(:id).sample }
   end
 end

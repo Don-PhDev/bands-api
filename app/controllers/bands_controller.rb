@@ -3,9 +3,9 @@ class BandsController < ApplicationController
 
   # GET /bands
   def index
-    @bands = Band.all
+    @bands = Band.all.order(created_at: :asc)
 
-    render json: @bands
+    render json: @bands, except: %i[created_at updated_at]
   end
 
   # GET /bands/1

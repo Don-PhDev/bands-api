@@ -17,18 +17,32 @@ ActiveRecord::Schema.define(version: 2021_10_22_081718) do
 
   create_table "bands", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_bands_on_name", unique: true
+    t.index ["user_id"], name: "index_bands_on_user_id"
   end
 
   create_table "members", force: :cascade do |t|
-    t.bigint "band_id", null: false
     t.string "name", null: false
+    t.bigint "band_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["band_id"], name: "index_members_on_band_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "bands", "users"
   add_foreign_key "members", "bands"
+  add_foreign_key "members", "users"
 end

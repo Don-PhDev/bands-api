@@ -1,3 +1,4 @@
 class Band < ApplicationRecord
-  has_many :members
+  belongs_to :user
+  has_many :members, dependent: :destroy
 end
